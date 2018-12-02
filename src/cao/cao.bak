@@ -1,0 +1,13 @@
+var
+  r,c,i,j:longint;
+  a:array[1..10000,1..10000]of'#','.';
+begin
+  read(r,c);
+  for i:=1 to r do
+   begin
+    for j:=1 to c do
+      read(a[i,j]);
+    readln;
+   end;
+
+end.

@@ -1,0 +1,66 @@
+const
+  max=100;
+var
+  nu:array[0..max]of longint;
+  sy:array[1..max]of char;
+  s,t:string;
+  i,j,p,code:longint;
+procedure push;
+  begin
+    inc(p);
+    sy[p]:=s[i];
+  end;
+procedure pop;
+  begin
+    dec(p);
+    case sy[p+1] of
+      '+':inc(nu[p],nu[p+1]);
+      '-':dec(nu[p],nu[p+1]);
+      '*':nu[p]:=nu[p]*nu[p+1];
+      '/':nu[p]:=nu[p] div nu[p+1]l
+    end;
+  end;
+function can:boolean;
+  begin
+    can:=true;
+    if (s[i] in ['+','-'])and(sy[p]<>'(')
+      then exit;
+    if (s[i] in ['*','/'])and(sy[p] in ['*','/'])
+      then exit;
+    can:=false;
+  end;
+begin
+  readln(s);
+  s:='('+s')';
+  i:=1;
+  p:=0;
+  while i<=length(s) do
+    begin
+      while s[i]='(' do
+        begin
+          push;
+          inc(i);
+        end;
+      j:=i;
+      repeat
+        inc(i);
+      until(s[i]<'0')or(s[i]>'9');
+      t:=copy(s,j,i-j);
+      val(t,nu[p],code);
+      repeat
+        if s[i]=')' then
+                      begin
+                        while sy[p]<>'(' do pop;
+                        dec(p);
+                        nu[p]:=nu[p+1];
+                      end
+                    else
+                      begin
+                        while can do pop;
+                        push;
+                      end;
+        inc(i);
+      until (i>length(s))or(s[i-1]<>')');
+    end;
+  write(nu[0]);
+end.

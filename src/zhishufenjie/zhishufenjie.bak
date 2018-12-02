@@ -1,0 +1,15 @@
+var
+  i,j,c:longint;
+  p:boolean;
+  a:array[1..200000]of longint;
+begin
+  for i:=2 to trunc(sqrt(2000000000))do
+    begin
+      p:=true;
+      for j:=2 to trunc(sqrt(i)) do
+        if i mod j =0 then p:=false;
+      if p=true then begin inc(c); a[c]:=i; end;
+    end;
+  for i:=1 to 10 do
+    write(a[i],' ');
+end.

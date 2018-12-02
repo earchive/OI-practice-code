@@ -1,0 +1,27 @@
+const
+  max=50000;
+var
+  c,n,i,j,k:longint;
+  p:boolean;
+  a,b:array[1..max]of longint;
+begin
+  readln(n);
+  for i:=1 to n do
+    readln(b[i]);
+  c:=0;
+  i:=1;
+  while c<>max do
+    begin
+      inc(i);
+      p:=true;
+      for j:=2 to trunc(sqrt(i)) do
+        if i mod j=0 then p:=false;
+      if p=true then begin inc(c); a[c]:=i;for k:=1 to n do
+                                              if b[k]=c then writeln(i);end;
+    end;
+    //for i:=1 to n do
+      //writeln(a[b[i]]);
+    for i:=1 to 100 do
+      write(a[i],' ');
+end.
+

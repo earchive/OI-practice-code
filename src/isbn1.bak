@@ -1,0 +1,16 @@
+var
+  s:string;
+  c,i:longint;
+function try1(s:char):longint;
+  begin
+    exit(ord(s)-ord('0'));
+  end;
+begin
+  readln(s);
+  c:=1*try1(s[1])+2*try1(s[3])+3*try1(s[4])+4*try1(s[5])+5*try1(s[7])+6*try1(s[8])+7*try1(s[9])+8*try1(s[10])+9*try1(s[11]);
+  if (c mod 11 )=try1(s[13]) then writeln('Right')
+                             else begin for i:=1 to 12 do
+                                          write(s[i]);
+                                        write(c mod 11);
+end;
+end.

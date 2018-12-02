@@ -1,0 +1,19 @@
+var
+  r,c,i,j,z:longint;
+  a:array[0..10000,0..10000]of char;
+  b:array[1..10000,1..10000]of boolean;
+begin
+  read(r,c);
+  for i:=1 to r do
+   begin
+    for j:=1 to c do
+      read(a[i,j]);
+    readln;
+   end;
+  for i:=1 to r do
+    for j:=1 to c do
+      if a[i,j]='#' then begin z:=z+1; a[i,j-1]:='.'; a[i,j+1]:='.'; a[i-1,j]:='.'; a[i+1,j]:='.';end;
+  writeln(z);
+
+
+end.

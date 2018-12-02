@@ -1,0 +1,13 @@
+const
+  max=10000;
+var
+  i,j,q,r:longint;
+begin
+  for i:=1 to max do
+    for j:=1 to max do
+      begin
+        q:=(i*i+j*j) div (i+j);
+        r:=(i*i+j*j) mod (i+j);
+        if q*q+r=1993 then writeln(i,' ',j);
+      end;
+end.

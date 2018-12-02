@@ -1,0 +1,45 @@
+var
+  t:longint;
+  q:array[1..8]of longint;
+  a:array[1..8]of boolean;
+  b:array[2..16]of boolean;
+  c:array[-7..7]of boolean;
+procedure print(t:longint);
+  var
+    a:array[1..8,1..8]of '0'..'1';
+    i,j:longint;
+  begin
+    writeln('No. ',t);
+    fillchar(a,sizeof(a),'0');
+    for i:=1 to 8 do
+      a[i,q[i]]:='1';
+    for i:=1 to 8 do
+      begin
+        for j:=1 to 8 do
+          write(a[j,i],' ');
+        writeln;
+      end;
+  end;
+procedure try(i:longint);
+  var
+    j:longint;
+  begin
+    for j:=1 to 8 do
+      begin if (a[j]=false)and(b[i+j]=false)and(c[i-j]=false)
+              then begin
+                    q[i]:=j;
+                    a[j]:=true;
+                    b[i+j]:=true;
+                    c[i-j]:=true;
+                    if i<8 then try(i+1)
+                           else begin t:=t+1; print(t); end;
+                    a[j]:=false;
+                    b[i+j]:=false;
+                    c[i-j]:=false;
+                   end;
+      end;
+    end;
+begin
+  t:=0;
+  try(1);
+end.

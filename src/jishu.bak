@@ -1,0 +1,39 @@
+var
+  s1,s2:string;
+  p,i,j,k,c:longint;
+  bo:boolean;
+  a:array[1..10000]of string;
+  f:array[1..10000]of longint;
+begin
+  readln(s1);
+  readln(s2);
+  for i:=1 to length(s1) do
+    lowercase(s1[i]);
+  for i:=1 to length(s2) do
+    lowercase(s2[i]);
+  while s2[1]<>' ' do
+    begin
+      p:=pos(' ',s2);
+      inc(i);
+      a[i]:=copy(s2,1,p-1);
+      f[i]:=f[i-1]+length(a[i-1])+1;
+      delete(s2,1,p);
+    end;
+  k:=i;
+  for i:=1 to k do
+    begin
+    bo:=true;
+    if length(a[i])=length(s1) then for j:=1 to length(s1) do
+                                      if s1[j]<>a[i][j] then bo:=false;
+    if bo=true then inc(c);
+    end;
+  if c=0 then begin writeln('-1'); halt; end;
+  write(c,' ');
+  for i:=1 to k do
+    begin
+    bo:=true;
+    if length(a[i])=length(s1) then for j:=1 to length(s1) do
+                                      if s1[j]<>a[i][j] then bo:=false;
+    if bo=true then begin write(f[i],' '); break; end;
+    end;
+end.

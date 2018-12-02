@@ -1,0 +1,15 @@
+const
+  mission=10000;
+var
+  i,j,k,c:longint;
+  m:int64;
+begin
+  for i:=1 to mission do
+    for j:=1 to (mission div i) do
+      for k:=1 to (mission div i div j) do
+        begin
+          m:=i*j*k;
+          if m=mission then inc(c);
+        end;
+  writeln(c);
+end.

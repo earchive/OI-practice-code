@@ -1,0 +1,41 @@
+type
+  jiedian=record
+      num:longint;
+      f,left,right:longint;
+  end;
+var
+  tree:array[1..10000]of jiedian;
+  t,len,i:longint;
+procedure  find(k:longint);
+  begin
+    if t>tree[k].num then
+      begin
+        if tree[k].right>0 then find(tree[k].right)
+          else begin inc(len); tree[len].num:=t; tree[k].right:=len; tree[len].f:=k; end;
+      end
+      else begin
+        if tree[k].left>0 then find(tree[k].left)
+          else begin inc(len); tree[len].num:=t; tree[k].left:=len; tree[len].f:=k; end;
+      end
+ end;
+procedure print(k:longint);
+  begin
+    if tree[k].left>0 then print(tree[k].left);
+    writeln(tree[k].num,' ');
+    if tree[k].right>0 then print(tree[k].right);
+  end;
+begin
+  readln(t);
+  if t<>-1 then begin tree[1].num:=t;
+                      len:=1;
+                      readln(t);
+                end;
+  while t<>-1 do
+    begin
+      find(1);
+      readln(t);
+    end;
+  //for i:=1 to len do
+    //writeln(i,' ',tree[i].num,' ',tree[i].f,' ',tree[i].left,' ',tree[i].right);
+    print(1);
+end.

@@ -1,0 +1,43 @@
+var
+ s,s1,s2,s3:ansistring;
+ i,j,temp,code,t1,ans,p,p1,l,l1,t:longint;
+begin
+  read(s);
+  s:=s+'+';
+  t1:=1;     i:=1;
+  while i<length(s) do
+    begin
+      j:=i+1;
+      while (s[j]>='0')and(s[j]<='9')and(j<length(s)) do
+        inc(j);
+      s1:=copy(s,i,j-i);
+      val(s1,temp,code);
+
+      temp:=temp mod 10000;
+      writeln(temp);
+      if s[j]='*'
+        then t1:=t1*temp mod 10000;
+      if s[j]='+'
+        then begin
+               ans:=(ans+temp*t1) mod 10000;
+               t1:=1;
+             end;
+      i:=j+1;
+    end;
+
+    p:=pos('+',s);
+    s2:=copy(s,1,p-1);
+    p1:=pos('*',s2);
+    if p1=0 then begin val(s2,t,code); ans:=ans+t; end
+           else  while p1=0 do
+                   begin s3:=copy(s2,1,p1-1);
+                         val(s3,l,code);
+                         l1:=1;
+                         l1:=l1*l;
+                         delete(s2,1,p1);
+                         p1:=pos('*',s2);
+                   end;
+                   ans:=ans+l1;
+
+  write(ans);
+end.

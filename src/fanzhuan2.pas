@@ -1,0 +1,12 @@
+var
+  s:string;
+  i:longint;
+begin
+  readln(s);
+  if s[1]='-' then begin delete(s,1,1);  write('-');  end;
+  for i:=length(s) downto 1 do
+    if s[i]='0' then delete(s,length(s),1)
+             else break;
+  for i:=length(s) downto 1 do
+    write(s[i]);
+end.

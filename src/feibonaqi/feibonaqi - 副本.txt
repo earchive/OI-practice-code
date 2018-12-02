@@ -1,0 +1,15 @@
+var
+ n,i,m:longint;
+function js(n:longint):longint;
+  begin
+    if (n=1)or(n=2) then js:=1
+       else js:=js(n-1)+n;
+  end;
+begin
+  readln(n);
+  for i:=1 to n do
+   begin
+     readln(m);
+    writeln(js(m));
+   end;
+end.

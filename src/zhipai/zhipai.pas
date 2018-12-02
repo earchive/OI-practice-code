@@ -1,0 +1,19 @@
+var
+ n,i,s,p,z:integer;
+ a:array[1..10000]of integer;
+ y:char;
+begin
+  readln(n);
+  for i:=1 to n do
+   begin
+    read(a[i],y);
+    s:=s+a[i];
+   end;
+  p:=s div n;
+   for i:=1 to n do
+     a[i]:=a[i]-p;
+  for i:=1 to n do
+      if a[i]<>0  then  begin z:=z+1;  a[i+1]:=a[i+1]+a[i];  end;
+
+  writeln(z);
+end.

@@ -1,0 +1,12 @@
+var
+  l,r,j,c:longint;
+  x,y,i:string;
+begin
+  readln(l,r);
+  str(x,l);
+  str(y,r);
+  for i:=x to y do
+      for j:=1 to length(i) do
+          if i[j]='2' then inc(c);
+  writeln(c);
+end.

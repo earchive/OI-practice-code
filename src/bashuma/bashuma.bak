@@ -1,0 +1,104 @@
+type
+  qipan=array[1..3,1..3]of longint;
+  duilie=record
+    zhuangtai:qipan;
+    x,y:longint;
+    fa,dep,s:longint;
+  end;
+const
+  listmax=10000;
+var
+  dx:array[1..4]of longint=(-1,0,1,0);
+  dy:array[1..4]of longint=(0,-1,0,1);
+  list:array[1..listmax]of duilie;
+  open,close,i,j:longint;
+  goal:qipan;
+function catch(q,p:qipan):boolean;
+  var
+    i,j:longint;
+  begin
+    catch:=true;
+    for i:=1 to 3 do
+      for j:=1 to 3 do
+        if q[i,j]<>p[i,j] then catch:=false;
+  end;
+function sfcf(t:longint):boolean;
+  var
+    i:longint;
+  begin
+    sfcf:=true;
+    for i:=1 to t-1 do
+      if catch(list[i].zhuangtai,list[t].zhuangtai) then begin sfcf:=false; exit; end;
+  end;
+procedure print;
+  var
+    f:array[1..listmax]of longint;
+    i,j,m,k:longint;
+  begin
+    k:=close;
+    repeat
+      inc(i);
+      f[i]:=k;
+      k:=list[list[k].fa].s;
+    until k=0;
+    k:=i-1;
+    for m:=k downto 1 do
+      begin
+        for i:=1 to 3 do
+          begin
+            for j:=1 to 3 do
+              write(list[f[m]].zhuangtai[i,j],' ');
+            writeln;
+          end;
+        writeln;
+      end;
+      halt;
+    end;
+procedure expand(w:duilie);
+  var
+    i,t:longint;
+  begin
+    for i:=1 to 4 do
+      if (w.x+dx[i]>0)and(w.x+dx[i]<4)and(w.y+dy[i]<4)and(w.y+dy[i]>0)and(open<listmax)
+        then begin
+               inc(open);
+               list[open]:=w;
+               t:=list[open].zhuangtai[list[open].x+dx[i],list[open].y+dy[i]];
+               list[open].zhuangtai[list[open].x+dx[i],list[open].y+dy[i]]:=list[open].zhuangtai[list[open].x,list[open].y];
+               list[open].zhuangtai[list[open].x,list[open].y]:=list[open].zhuangtai[list[open].x+dx[i],list[open].y+dy[i]];
+               inc(list[open].x,dx[i]);
+               inc(list[open].y,dy[i]);
+               list[open].fa:=w.s;
+               list[open].dep:=w.dep+1;
+               list[open].s:=open;
+            end;
+      if sfcf(open) then dec(open);
+  end;
+procedure bfs;
+  begin
+    while(close<open)and(open<=listmax)do
+      begin
+        inc(close);
+        if catch(list[close].zhuangtai,goal) then print
+          else expand(list[close]);
+      end;
+    write(close);
+  end;
+begin
+  for i:=1 to 3 do
+    for j:=1 to 3 do
+      begin
+        read(list[1].zhuangtai[i,j]);
+        if list[1].zhuangtai[i,j]=0 then begin list[1].x:=i; list[1].y:=j; end;
+      end;
+  list[1].fa:=0;
+  list[1].dep:=0;
+  list[1].s:=1;
+  open:=1;
+  close:=0;
+  for i:=1 to 3 do
+    for j:=1 to 3 do
+      read(goal[i,j]);
+  bfs;
+  writeln('NO solution!');
+end.
